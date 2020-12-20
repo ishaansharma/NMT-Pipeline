@@ -1,0 +1,60 @@
+data: 
+  train:
+    path_src: data/src_tgt/src-train-bpe.txt
+    path_tgt: data/src_tgt/tgt-train-bpe.txt
+    weight: 1
+  valid:
+    path_src: data/src_tgt/src-val-bpe.txt
+    path_tgt: data/src_tgt/tgt-val-bpe.txt
+
+save_data: data/src_tgt/
+
+src_vocab: data/src_tgt/src.vocab
+tgt_vocab: data/src_tgt/tgt.vocab
+
+# General opts
+save_model: data/src_tgt/train/model
+save_checkpoint_steps: 1000
+keep_checkpoint: 5
+train_steps: 200000
+valid_steps: 1000
+report_every: 100
+
+# Batching
+queue_size: 10000
+bucket_size: 32768
+world_size: 1
+gpu_ranks: 0
+batch_type: "tokens"
+batch_size: 4096
+valid_batch_size: 8
+max_generator_batches: 2
+accum_count: [4]
+accum_steps: [0]
+
+# Optimization
+model_dtype: "fp32"
+optim: "adam"
+learning_rate: 2
+warmup_steps: 8000
+decay_method: "noam"
+adam_beta2: 0.998
+max_grad_norm: 0
+label_smoothing: 0.1
+param_init: 0
+param_init_glorot: true
+normalization: "tokens"
+
+# Model
+encoder_type: transformer
+decoder_type: transformer
+position_encoding: true
+enc_layers: 6
+dec_layers: 6
+heads: 8
+rnn_size: 512
+word_vec_size: 512
+transformer_ff: 2048
+dropout_steps: [0]
+dropout: [0.3]
+attention_dropout: [0.1]
